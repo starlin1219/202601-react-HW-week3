@@ -1,0 +1,10 @@
+.login {
+  max-width: 600px;
+  height: 100vh;
+  padding-top: 100px;
+}
+
+.product-image {
+  height: 600px;
+  object-fit: cover;
+}
