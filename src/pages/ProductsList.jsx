@@ -40,15 +40,6 @@ export default function ProductsList() {
   }, []);
 
   useEffect(() => {
-    const token = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("hexToken="))
-      ?.split("=")[1];
-
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = token;
-    }
-
     (async () => await getProducts())();
 
     productModalRef.current = new Modal("#productModal", {
@@ -56,13 +47,17 @@ export default function ProductsList() {
     });
 
     // Modal 關閉時移除焦點
-    document
-      .querySelector("#productModal")
-      .addEventListener("hide.bs.modal", () => {
-        if (document.activeElement instanceof HTMLElement) {
-          document.activeElement.blur();
-        }
-      });
+    const modalElement = document.querySelector("#productModal");
+    const modalHandler = () => {
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+    };
+    modalElement?.addEventListener("hide.bs.modal", modalHandler);
+
+    return () => {
+      modalElement?.removeEventListener("hide.bs.modal", modalHandler);
+    };
   }, [getProducts]);
 
   const openModal = (type, product) => {
@@ -248,7 +243,6 @@ export default function ProductsList() {
         tabIndex="-1"
         aria-labelledby="productModalLabel"
         aria-hidden="true"
-        ref={productModalRef}
       >
         <div
           className={`modal-dialog ${modalType === "delete" ? "" : "modal-xl"}`}
