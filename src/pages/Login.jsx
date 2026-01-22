@@ -55,6 +55,7 @@ export default function Login() {
                       type="email"
                       className="form-control"
                       name="username"
+                      id="username"
                       value={formData.username}
                       placeholder="name@example.com"
                       onChange={handleInputChange}
