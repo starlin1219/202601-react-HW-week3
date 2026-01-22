@@ -11,8 +11,8 @@ export default function Login() {
   const { setIsAuth } = useAuth();
 
   const [formData, setFormData] = useState({
-    username: "ying@gmail.com",
-    password: "123456",
+    username: "",
+    password: "",
   });
 
   const handleInputChange = (e) => {
@@ -66,6 +66,7 @@ export default function Login() {
                       type="password"
                       className="form-control"
                       name="password"
+                      id="password"
                       value={formData.password}
                       placeholder="Password"
                       onChange={handleInputChange}

@@ -161,9 +161,8 @@ export default function ProductsList() {
       closeModal();
     } catch (error) {
       alert(
-        error.response?.data.message || method === "post"
-          ? "產品新增失敗"
-          : "產品更新失敗",
+        error.response?.data.message ||
+          (method === "post" ? "產品新增失敗" : "產品更新失敗"),
       );
     }
   };
